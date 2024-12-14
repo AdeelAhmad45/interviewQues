@@ -18,9 +18,8 @@ class Queue {
     size(){
         return this.items.length
     }
-    item(){
-        console.log(this.items);
-        
+    clear(){
+        this.items = [];        
     }
 }
 
@@ -32,4 +31,4 @@ obj.shift("C")
 console.log(obj.pop());
 console.log(obj.peek());
 console.log(obj.size());
-obj.item()
+console.log(obj.clear());

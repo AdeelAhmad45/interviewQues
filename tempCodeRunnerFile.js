@@ -1,36 +1,23 @@
-function Stack(){
-    let items = [];
-    this.push = function(item){
-            items.push(item)
-        }
-        
-        this.pop = function(){
-            return items.pop()
-        }
+pop(){
+    //     return this.items.pop()
+    // }
+    // peek(){
+    //     return this.items[this.items.length - 1]
+    // }
 
-        this.peek = function(){
-            return items[items.length -1]
-        }
+    // clear(){
+    //     this.items = [];
+    // }
 
-        this.clear = function(){
-            items.length =0; 
-            // items =[]
-        }
+    // size(){
+    //     return this.items.length
+    // }
 
-        this.isEmpty = function(){
-            return items.length == 0;
-        }
+    // isEmpty(){
+    //     return this.items.length == 0;
+    // }
 
-        this.size = function(){
-            return items.length
-        }
-        this.print = function(){
-            console.log(items.toString());
-            
-        }
-    
-}
-
-let obj = new Stack();
-obj.push("A");
-// console.log(obj);
+    // print(){
+    //    console.log(this.items.toString());
+       
+    // }

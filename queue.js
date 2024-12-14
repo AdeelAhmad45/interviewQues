@@ -14,7 +14,7 @@ function Queue(){
         return items.length
     }
     this.clear = function(){
-        items = []
+        return items = []
     }
 }
 
@@ -23,8 +23,9 @@ obj.shift('A')
 obj.shift('B')
 obj.shift('C')
 obj.shift('D')
+
 console.log(obj.pop());
 console.log(obj.peek());
 console.log(obj.size());
+console.log(obj.clear());
 
-// obj.clear()

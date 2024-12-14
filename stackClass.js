@@ -1,4 +1,7 @@
+var _items = Symbol()
+
 class Stack {
+    // #items;
     constructor(){
         this.items = []
     }
@@ -32,6 +35,8 @@ class Stack {
 }
 
 let obj = new Stack();
+
+
 obj.push("A")
 obj.push("B")
 obj.push("C")
@@ -39,5 +44,5 @@ obj.pop()
 console.log(obj.pop());
 console.log(obj.peek());
 console.log(obj.isEmpty());
-obj.print()
-obj.clear()
+// obj.print()
+// obj.clear()
