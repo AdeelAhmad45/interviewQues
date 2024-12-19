@@ -1,0 +1,43 @@
+<script>
+    class Product{
+        title;
+        price;
+        category;
+      Print(){
+        console.log(`${this.title} <br> ${this.price} <br> ${this.category}`);
+        
+      }  
+    }
+
+    class TV extends Product {
+        title = 'samsung tv';
+        price = 56000;
+        features = 'Supports 4K Video'
+
+        Print(){
+        super.Print();
+        document.write(`${this.features}`)
+    }
+    }
+
+    class NikeCasual extends Product{
+        title = 'Nike casual';
+        price = 5450;
+        category = 'footwear';
+        features = 'with foam sole';
+        Print(){
+            super.Print();
+            document.write(`${this.features}`)
+        }
+    }
+
+    let obj = new Array(new TV(), new NikeCasual())
+    var categories = prompt('Enter Category')
+
+    for (var product of obj) {
+        if (product.category === categories) {
+            product.Print();
+        }
+    }
+    
+</script>
