@@ -1,0 +1,26 @@
+Task:
+1. Design 2 pages
+	   register.html
+	   review.html
+
+2. register.html will have a form that submits data to review.html
+
+3. register form contains details
+
+		Name
+		Age
+		Date of Birth
+		City
+		Gender
+
+4. review page collects and display in a tabular form
+
+5. Send data from register to review using querystring.
+
+		review page
+	
+	Name		:  Some Name
+	Age			:  33
+	Date of Birth	:  data
+	City			:  city name
+	Gender		:  male or female

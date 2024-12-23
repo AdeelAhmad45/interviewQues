@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function bodyLoad(){
+            const querystring = location.search
+            // console.log(queryString);
+            
+            const params = new URLSearchParams(querystring)
+            // params.get("Name")
+           
+            document.getElementById("lblName").innerHTML = params.get("Name")
+            document.getElementById('lblAge').innerHTML = params.get("age")
+            document.getElementById('lbldob').innerHTML = params.get("dob")
+
+        }
+        
+    </script>
+</head>
+<body onload="bodyLoad()">
+    <table border="1">
+        <tr >
+            <td>Name</td>
+            <td id="lblName"></td>
+        </tr>
+        <tr >
+            <td>Age</td>
+            <td id="lblAge"></td>
+        </tr>
+        <tr >
+            <td>DOB</td>
+            <td id="lbldob"></td>
+        </tr>
+    </table>
+</body>
+</html>
