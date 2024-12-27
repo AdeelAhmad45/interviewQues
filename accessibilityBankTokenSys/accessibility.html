@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href=".././node_modules/bootstrap/dist/css/bootstrap.css">
+    <script src=".././node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script type="module">
+        import { Queue } from "./queue/queue.js";
+        var tokens = new Queue();
+        var tokenNumber = 1;
+        var speech = new SpeechSynthesisUtterance();
+        var userName;
+        var counterStates = {
+            counter1: true,
+            counter2: true,
+            counter3: true,
+        };
+        document.getElementById("GenerateToken").addEventListener("click", () => {
+            userName = prompt("Enter User Name");
+            if (userName) {
+                tokens.enQueue(`${tokenNumber} [${userName}]`);
+                LoadTokens();
+                alert("Token Generated");
+                tokenNumber++;
+            } else {
+                alert("Token generation cancelled.");
+            }
+        })
+
+        function LoadTokens() {
+            document.getElementById("lstTokens").innerHTML = "";
+            for (var item of tokens.collection) {
+                var opt = document.createElement("option");
+                opt.text = item;
+                document.getElementById("lstTokens").appendChild(opt);
+            }
+        }
+
+        document.getElementById("btnCall1").addEventListener("click", () => {
+
+            if (!counterStates.counter1) {
+                alert("Counter 1 is OFF. Turn it ON to call tokens.");
+                return;
+            }
+            if (tokens.collection.length === 0) {
+                speech.text = "No tokens available";
+                window.speechSynthesis.speak(speech);
+                alert("No tokens available.");
+                return;
+            }
+
+            var dequeuedToken = tokens.deQueue();
+            var tokenNumberForAnnouncement = dequeuedToken.split(' ')[0];
+
+            var option = document.createElement("option");
+            option.text = dequeuedToken;
+            speech.text = `Token Number ${tokenNumberForAnnouncement} go to Counter 1`;
+            window.speechSynthesis.speak(speech);
+
+            document.getElementById("lstCounter1").appendChild(option);
+            LoadTokens();
+        })
+        document.getElementById("btnCall2").addEventListener("click", () => {
+            if (tokens.collection.length === 0) {
+                speech.text = "No tokens available";
+                window.speechSynthesis.speak(speech);
+                alert("No tokens available.");
+                return;
+            }
+            var dequeuedToken = tokens.deQueue();
+            var tokenNumberForAnnouncement = dequeuedToken.split(' ')[0];
+
+            var option = document.createElement("option");
+            option.text = dequeuedToken;
+            speech.text = `Token Number ${tokenNumberForAnnouncement} go to Counter 2`;
+            window.speechSynthesis.speak(speech);
+
+            document.getElementById("lstCounter2").appendChild(option);
+            LoadTokens();
+
+        })
+        document.getElementById("btnCall3").addEventListener("click", () => {
+            if (tokens.collection.length === 0) {
+                speech.text = "No tokens available";
+                window.speechSynthesis.speak(speech);
+                alert("No tokens available.");
+
+                return;
+            }
+            var dequeuedToken = tokens.deQueue();
+
+            var tokenNumberForAnnouncement = dequeuedToken.split(' ')[0];
+
+            var option = document.createElement("option");
+            option.text = dequeuedToken;
+            speech.text = `Token Number ${tokenNumberForAnnouncement} go to Counter 3`;
+            window.speechSynthesis.speak(speech);
+
+            document.getElementById("lstCounter3").appendChild(option);
+            LoadTokens();
+
+        })
+        document.getElementById("toggleCounter1").addEventListener("change", (event) => {
+            counterStates.counter1 = event.target.checked;
+            document.getElementById("btnCall1").disabled = !counterStates.counter1;
+            alert(`Counter 1 turned ${counterStates.counter1 ? "ON" : "OFF"}`);
+        });
+
+        document.getElementById("toggleCounter2").addEventListener("change", (event) => {
+            counterStates.counter2 = event.target.checked;
+            document.getElementById("btnCall2").disabled = !counterStates.counter2;
+            alert(`Counter 2 turned ${counterStates.counter2 ? "ON" : "OFF"}`);
+        });
+
+        document.getElementById("toggleCounter3").addEventListener("change", (event) => {
+            counterStates.counter3 = event.target.checked;
+            document.getElementById("btnCall3").disabled = !counterStates.counter3;
+            alert(`Counter 3 turned ${counterStates.counter3 ? "ON" : "OFF"}`);
+        });
+        window.onload = () => {
+            document.getElementById("btnCall1").disabled = !counterStates.counter1;
+            document.getElementById("btnCall2").disabled = !counterStates.counter2;
+            document.getElementById("btnCall3").disabled = !counterStates.counter3;
+        };
+
+    </script>
+    <title>Document</title>
+</head>
+
+<body class="container-fluid">
+    <div>
+        <h2>Bank token system</h2>
+    </div>
+    <div class="d-flex">
+        <div>
+            <div class="form-check form-switch mt-2">
+                <input class="form-check-input" type="checkbox" id="toggleCounter1" checked>
+                <label class="form-check-label" for="toggleCounter1">
+                    <h5>Counter1</h5>
+                </label>
+            </div>
+            <select size="3" style="width: 200px;" id="lstCounter1">
+
+            </select><br><br>
+            <button class="btn btn-primary" id="btnCall1"> call customer</button>
+            <div>
+
+            </div>
+        </div>
+
+        <div class="mx-5">
+            <div class="form-check form-switch mt-2">
+                <input class="form-check-input" type="checkbox" id="toggleCounter2" checked>
+                <label class="form-check-label" for="toggleCounter2">
+                    <h5>Counter2</h5>
+                </label>
+            </div>
+            <select size="3" style="width: 200px;" id="lstCounter2">
+
+            </select><br><br>
+            <button class="btn btn-primary" id="btnCall2"> call customer</button>
+
+        </div>
+        <div>
+            <div class="form-check form-switch mt-2">
+                <input class="form-check-input" type="checkbox" id="toggleCounter3" checked>
+                <label class="form-check-label" for="toggleCounter3">
+                    <h5>Counter3</h5>
+                </label>
+            </div>
+            <select size="3" style="width: 200px;" id="lstCounter3">
+
+            </select><br><br>
+            <button class="btn btn-primary" id="btnCall3"> call customer</button>
+        </div>
+    </div>
+    <div class="mt-5">
+        <select size="3" style="width: 200px;" id="lstTokens">
+
+        </select><br><br>
+        <button class="btn btn-primary mt-2" id="GenerateToken"> Generate token</button>
+    </div>
+</body>
+
+</html>
