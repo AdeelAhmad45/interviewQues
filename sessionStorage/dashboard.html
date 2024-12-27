@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    function bodyLoad(){
+        let id = sessionStorage.getItem("userid");
+        document.getElementById("userId").innerHTML = id;
+        if (!id) {
+            location.href = "./login.html"
+        }
+        checkInactive();
+        
+    }
+    function setClick(){
+        location.href = "./account.html"
+    }
+    function logOut(){
+        sessionStorage.removeItem("userid")
+        location.href = "./login.html"
+        alert("Your session out")
+    }
+
+    function checkInactive(){
+        let task;
+        function Active() {
+            clearTimeout(task);
+            task = setTimeout(logOut, 10000);
+
+        }
+        window.onload = Active;
+            document.onkeypress = Active;
+            document.onscroll = Active;
+            document.onmousemove = Active;
+            document.ontouchstart = Active;
+    }
+</script>
+<body onload="bodyLoad()">
+    <h1>User Dashboard</h1>
+    userid <div id="userId"></div>
+    <button onclick="setClick()">Settings</button>
+    <button onclick="logOut()">Signout</button>
+</body>
+</html>

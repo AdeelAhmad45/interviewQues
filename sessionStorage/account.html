@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=!, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function bodyLoad(){
+            let id = sessionStorage.getItem("userid")
+            document.getElementById("ids").innerHTML = id;
+
+            if (!id) {
+                location.href = "./login.html"
+            }
+        
+            checkInactive();
+        
+        }
+
+        function logOut(){
+            sessionStorage.removeItem("userid")
+            location.href = "./login.html"
+            alert("Your session out")
+
+        }
+
+        function checkInactive(){
+            var task;
+            function Active(){
+                clearTimeout(task)
+                task = setTimeout(logOut, 10000);
+            }
+
+            window.onload = Active;
+            document.onkeypress = Active;
+            document.onscroll = Active;
+            document.onmousemove = Active;
+            document.ontouchstart = Active;
+
+        }
+    </script>
+</head>
+<body onload="bodyLoad()">
+    <h1>UserAccount</h1>
+    userId <div id="ids"></div>
+    <button onclick="logOut()">Signout</button>
+
+</body>
+</html>
